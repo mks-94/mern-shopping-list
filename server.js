@@ -18,7 +18,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/shoppingList", {
 const connection = mongoose.connection;
 
 connection.once("open", () => {
-  console.log("MongoDB connection established in murali's machine.");
+  console.log("MongoDB connection established..!");
 });
 
 //Use Routes

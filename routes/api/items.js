@@ -14,7 +14,7 @@ router.get("/", (req, res) => {
 });
 
 //@route   POST app/items
-//@desc    create a Post request
+//@desc    create an Item
 //@access  public
 router.post("/", (req, res) => {
   const newItem = new Item({
@@ -22,6 +22,19 @@ router.post("/", (req, res) => {
   });
 
   newItem.save().then((item) => res.json(item));
+});
+
+//@route   DELETE app/items/:id
+//@desc    delete a item
+//@access  public
+router.delete("/:id", (req, res) => {
+  Item.findById(req.params.id)
+    .then((item) =>
+      item.remove().then(() => res.json({ success: "Item deleted." }))
+    )
+    .catch((err) =>
+      res.status(404).json({ failed: "Id is not present in db." })
+    );
 });
 
 module.exports = router;
