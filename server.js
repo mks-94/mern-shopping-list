@@ -1,20 +1,19 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path");
 const app = express();
 
 const port = process.env.PORT || 5000;
-const items = require("./routes/api/items");
 
 //BodyParser Middleware
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
 //Local mongodb connection
 mongoose.connect("mongodb://127.0.0.1:27017/shoppingList", {
   useNewUrlParser: true,
+  useCreateIndex: true,
 });
 const connection = mongoose.connection;
 
@@ -23,7 +22,8 @@ connection.once("open", () => {
 });
 
 //Use Routes
-app.use("/api/items", items);
+app.use("/api/items", require("./routes/api/items"));
+app.use("/api/users", require("./routes/api/users"));
 
 //Serve static assests if in production
 if (process.env.NODE_ENV === "production") {
