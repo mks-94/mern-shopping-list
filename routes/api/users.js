@@ -7,12 +7,12 @@ const jwt = require("jsonwebtoken");
 //Item Model
 const User = require("../../models/User");
 
-//@route   POST app/users
+//@route   POST api/users
 //@desc    Register new user
 //@access  public
 router.post("/", (req, res) => {
   const { name, email, password } = req.body;
-
+  console.log(res.body, "Response frm server");
   //simple validation
   if (!name || !email || !password) {
     return res.status(400).json({ msg: "Please enter all fields." });
